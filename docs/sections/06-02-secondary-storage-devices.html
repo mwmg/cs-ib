@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This section compares the most common types of secondary storage devices.and their use cases."/>
+	<!-- Open Graph tags -->
+	<meta property="og:locale" content="en_US">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Secondary Storage Devices">
+	<meta property="og:url" content="http://localhost:4000/sections/06-02-secondary-storage-devices.html">
+	<meta property="og:site_name" content="cs-ib.net">
+	<meta property="article:publisher" content="https://www.github.com/mwmg" />
+	<meta property="article:author" content="https://www.github.com/mwmg" />
+	<meta property="article:published_time" content=" 2020-10-02 19:07:39 +0200" />
+	<meta property="og:description" content="This section compares the most common types of secondary storage devices.and their use cases.">
+
+	<!-- Twitter card tags -->
+	<meta name="twitter:card" content="summary"/>
+	<meta name="twitter:title" content="Secondary Storage Devices">
+	<meta name="twitter:description" content="This section compares the most common types of secondary storage devices.and their use cases.">
+	<meta name="twitter:site" content="@GuseMiguel">
+
+	<title>Secondary Storage Devices - cs-ib</title>
+
+	<link rel="stylesheet" href="http://localhost:4000/css/main.css">
+	<!-- Asynchronous CSS loading -->
+	<link rel="preload" href="http://localhost:4000/css/slow.css" as="style" onload="this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="http://localhost:4000/css/slow.css"></noscript>
+	<!-- load CSS script -->
+	<script>
+			/*! loadCSS: load a CSS file asynchronously. [c]2016 @scottjehl, Filament Group, Inc. Licensed MIT */
+			(function(w){
+				"use strict";
+				/* exported loadCSS */
+				var loadCSS = function( href, before, media ){
+					// Arguments explained:
+					// `href` [REQUIRED] is the URL for your CSS file.
+					// `before` [OPTIONAL] is the element the script should use as a reference for injecting our stylesheet <link> before
+						// By default, loadCSS attempts to inject the link after the last stylesheet or script in the DOM. However, you might desire a more specific location in your document.
+					// `media` [OPTIONAL] is the media type or query of the stylesheet. By default it will be 'all'
+					var doc = w.document;
+					var ss = doc.createElement( "link" );
+					var ref;
+					if( before ){
+						ref = before;
+					}
+					else {
+						var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+						ref = refs[ refs.length - 1];
+					}
+
+					var sheets = doc.styleSheets;
+					ss.rel = "stylesheet";
+					ss.href = href;
+					// temporarily set media to something inapplicable to ensure it'll fetch without blocking render
+					ss.media = "only x";
+
+					// wait until body is defined before injecting link. This ensures a non-blocking load in IE11.
+					function ready( cb ){
+						if( doc.body ){
+							return cb();
+						}
+						setTimeout(function(){
+							ready( cb );
+						});
+					}
+					// Inject link
+						// Note: the ternary preserves the existing behavior of "before" argument, but we could choose to change the argument to "after" in a later release and standardize on ref.nextSibling for all refs
+						// Note: `insertBefore` is used instead of `appendChild`, for safety re: http://www.paulirish.com/2011/surefire-dom-element-insertion/
+					ready( function(){
+						ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+					});
+					// A method (exposed on return object for external use) that mimics onload by polling until document.styleSheets until it includes the new sheet.
+					var onloadcssdefined = function( cb ){
+						var resolvedHref = ss.href;
+						var i = sheets.length;
+						while( i-- ){
+							if( sheets[ i ].href === resolvedHref ){
+								return cb();
+							}
+						}
+						setTimeout(function() {
+							onloadcssdefined( cb );
+						});
+					};
+
+					function loadCB(){
+						if( ss.addEventListener ){
+							ss.removeEventListener( "load", loadCB );
+						}
+						ss.media = media || "all";
+					}
+
+					// once loaded, set link's media back to `all` so that the stylesheet applies once it loads
+					if( ss.addEventListener ){
+						ss.addEventListener( "load", loadCB);
+					}
+					ss.onloadcssdefined = onloadcssdefined;
+					onloadcssdefined( loadCB );
+					return ss;
+				};
+				// commonjs
+				if( typeof exports !== "undefined" ){
+					exports.loadCSS = loadCSS;
+				}
+				else {
+					w.loadCSS = loadCSS;
+				}
+			}( typeof global !== "undefined" ? global : this ));
+
+
+
+
+			/* CSS rel=preload polyfill (from src/cssrelpreload.js) */
+			/* CSS rel=preload polyfill. Depends on loadCSS function */
+			(function( w ){
+			  // rel=preload support test
+			  if( !w.loadCSS ){
+			    return;
+			  }
+			  var rp = loadCSS.relpreload = {};
+			  rp.support = function(){
+			    try {
+			      return w.document.createElement("link").relList.supports( "preload" );
+			    } catch (e) {}
+			  };
+
+			  // loop preload links and fetch using loadCSS
+			  rp.poly = function(){
+			    var links = w.document.getElementsByTagName( "link" );
+			    for( var i = 0; i < links.length; i++ ){
+			      var link = links[ i ];
+			      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" ){
+			        w.loadCSS( link.href, link );
+			        link.rel = null;
+			      }
+			    }
+			  };
+
+			  // if link[rel=preload] is not supported, we must fetch the CSS manually using loadCSS
+			  if( !rp.support() ){
+			    rp.poly();
+			    var run = w.setInterval( rp.poly, 300 );
+			    if( w.addEventListener ){
+			      w.addEventListener( "load", function(){
+			        w.clearInterval( run );
+			      } )
+			    }
+			  }
+			}( this ));
+
+			</script>
+	<!-- Rest of the head -->
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+	<link rel="canonical" href="http://localhost:4000/sections/06-02-secondary-storage-devices.html">
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-90695643-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+</head>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-9703453607267790",
+      enable_page_level_ads: true
+    });
+</script>
+
+
+<body>
+	<header>
+	<div class="site-header hidden-xs">
+		<div class="site-header-wrapper">
+			<a class="site-title" href="http://localhost:4000">cs-ib</a>
+		<span class="site-slogan">IB Computer Science</span>
+		</div>
+	</div>
+</header>
+
+<nav class="navbar navbar-default fixedsticky">
+	<div class="container">
+		<!-- Menu toggle button -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar" aria-expanded="false">
+		        <!-- Represents navbar collapsed menu on smaller screens -->
+	            <span class="sr-only">Toggle navigation</span>
+	            <i class="fa fa-bars" aria-hidden="true"></i> Menu
+		    </button>
+		    <a class="navbar-brand visible-xs" href="http://localhost:4000">cs-ib</a>
+		</div>
+		<div class="collapse navbar-collapse" id="main-navbar">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">IB Topics<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						
+						<li><a href="/topic/01-system-fundamentals.html">Topic 1 - System Fundamentals</a></li>
+						
+						<li><a href="/topic/05-abstract-data-structures.html">Topic 5 - Abstract data structures [HL]</a></li>
+						
+						<li><a href="/topic/06-resource-management.html">Topic 6 - Resource Management [HL]</a></li>
+						
+						<li><a href="/topic/07-control-systems.html">Topic 7 - Control systems [HL]</a></li>
+						
+						<li><a href="/topic/C-web-science.html">Option C - Web Science</a></li>
+						
+						<li><a href="/topic/case-study-2017.html">Case Study 2017</a></li>
+						
+					</ul>
+				</li>
+				<li><a href="http://localhost:4000">Home</a></li>
+				 
+				<li><a href="/blog/">Blog</a></li>
+				    
+				<li><a href="/about/">About</a></li>
+				    
+				<li><a href="/links/">Links</a></li>
+				           
+			</ul>
+		</div>
+	</div>
+</nav> 
+
+	<span class="clearfix"></span>
+	<div class="container">
+		<main>
+			<aside class="col-md-3 hidden-md hidden-lg">
+	<button type="button" class="btn btn-default vertical-rhythm" data-toggle="collapse" data-target="#sections-sidebar" aria-expanded="false" aria-controls="sections-sidebar">
+        <!-- Represents navbar collapsed menu on smaller screens -->
+        <span class="sr-only">Toggle sidebar</span>
+        <i class="fa fa-bars" aria-hidden="true"></i> Sections
+    </button>
+    <div class="collapse" id="sections-sidebar">
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/06-01-system-resources.html">System resources</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/06-02-secondary-storage-devices.html">Secondary Storage Devices</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/06-03-variety-computer-systems.html">Variety of computer systems</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/06-04-multitasking.html">Multi-tasking and the OS</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/06-05-memory-management.html">OS types & Memory Management</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/06-06-os-abstraction-and-more.html">OS abstraction layers & embedded systems</a>
+    	</p>
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    </div>
+</aside>
+<aside class="col-md-3 hidden-xs hidden-sm fixedsticky sidebar">
+	<h4>
+   		Sections
+   	</h4>
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/06-01-system-resources.html">System resources</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/06-02-secondary-storage-devices.html">Secondary Storage Devices</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/06-03-variety-computer-systems.html">Variety of computer systems</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/06-04-multitasking.html">Multi-tasking and the OS</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/06-05-memory-management.html">OS types & Memory Management</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/06-06-os-abstraction-and-more.html">OS abstraction layers & embedded systems</a>
+   	</p>
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+</aside>
+
+<article class="col-md-6">
+	
+		
+	
+		
+	
+		
+			<h3><a href="/topic/06-resource-management.html">Topic 6 - Resource Management [HL]</a></h3>
+		
+	
+		
+	
+		
+	
+		
+	
+	<h1 class="page-title">Secondary Storage Devices</h1>
+	<p><em>This section compares the most common types of secondary storage devices.and their use cases.</em></p>
+	<!-- more -->
+<h2 id="magnetic-media">Magnetic Media</h2>
+<h3 id="fixed-hard-drive-hdd">Fixed hard drive (HDD)</h3>
+<p>Data are stored on the surface of metal discs which have a magnetisable coating. Dots on the disc can store different magnetic field values (1 or 0). The dots are arranged in circles and sectors along the disc and can be read by the head, while the disc spins at high speeds.</p>
+
+<p><strong>Application:</strong> Main backing storage for almost all computers, as they offer random access and relatively high access speeds.</p>
+
+<p><strong>Typical Capacity:</strong> 1-4TB</p>
+
+<h3 id="portable-hard-drive">Portable hard drive</h3>
+<p>Same function as fixed HDD, although they are smaller and come with electronics that allow the drive to be accessed via USB or a similar connection.</p>
+
+<p><strong>Application:</strong> The allow the easy transportation of very large amounts of data from one computer to another.</p>
+
+<p><strong>Typical Capacity:</strong> 500GB-2TB</p>
+
+<h3 id="magnetic-tape-drive">Magnetic tape drive</h3>
+<p>Data are also stored on a magnetised film, however these are arranged along the length of a long plastic strip. Data are accessed serially, accessing individual files is therefore slow.</p>
+
+<p><strong>Application:</strong> Tapes are used mainly for data back-ups where large amounts of data need to be stored, but quick access to individual files is not required.
+Tapes are also used in some batch-processing applications (e.g. to hold the list of data that will be processed).</p>
+
+<p><strong>Typical capacity:</strong> Potentially up to 185 TB</p>
+
+<h2 id="optical-media">Optical media</h2>
+<p>All of these work in a similar way, in which data are stored as a pattern of dots that can be read by light, which is usually a laser beam. The data are read by bouncing the laser beam off the surface of the medium. The different dot patterns can be read as the reflect the laser beam differently. All of these allow random access but differ in their capacity and if they can be written.</p>
+<h3 id="cd-romrrw">CD-ROM/R/RW</h3>
+<ul>
+  <li>ROM: read-only</li>
+  <li>R: recordable</li>
+  <li>RW: rewritable</li>
+</ul>
+
+<p><strong>Application:</strong> content distribution, e.g. music, software or e-books. Cheap writable storage.</p>
+
+<p><strong>Typical capacity:</strong> ~800 MB</p>
+
+<h3 id="dvd-romrrwram">DVD-ROM/R/RW/RAM</h3>
+<ul>
+  <li>ROM: read-only</li>
+  <li>R: recordable</li>
+  <li>RW: rewritable</li>
+  <li>RAM: high-quality rewritable with high reliability</li>
+</ul>
+
+<p><strong>Application:</strong> distribution of high quality videos (movies, documentaries), re-usable storage medium, data backup and archiving.</p>
+
+<p><strong>Typical capacity:</strong> ~4.7 GB / 8.5 GB (dual-layer)</p>
+
+<h3 id="blu-ray-disc">Blu-ray disc</h3>
+<p>They work in the same way as DVD-ROMs, but due to a shorter laser wavelength they have a higher capacity.</p>
+
+<p><strong>Application:</strong> Distribution of HD videos and big software, such as console games.</p>
+
+<p><strong>Typical capacity:</strong> 25-50 GB</p>
+
+<h3 id="hd-dvd">HD-DVD</h3>
+<p>Meant as a competition to the Blu-ray disc, but less established.</p>
+
+<p><strong>Application:</strong> Same as Blu-ray, but no longer in use.</p>
+
+<p><strong>Typical capacity:</strong> 15/30 GB</p>
+
+<h2 id="solid-state-memory">Solid state memory</h2>
+<p>Flash memory is a non-volatile storage medium which can be electrically be erased and reprogrammed and is based on EEPROM (electronically-erasable programmable read-only memory). The most common type is NAND, where data can be read or written in blocks.</p>
+<h3 id="usb-flash-drive">USB flash drive</h3>
+<p>This data storage device uses flash memory which can be connected to a computer via USB.</p>
+
+<p><strong>Application:</strong> Used to transport small amounts of data quickly between different computers, specially because they have a universal compatibility and are easy to transport(small).</p>
+
+<p><strong>Typical capacity:</strong> 2-128GB (although up to 1TB exists)</p>
+
+<h3 id="memory-card">Memory card</h3>
+<p>Memory cards use the same flash memory technology, but in form of a card.</p>
+
+<p><strong>Application:</strong> Used mostly in portable electronic devices as digital cameras, mobile phones, laptops, tablets, etc.</p>
+
+<p><strong>Typical capacity:</strong> 1-128GB</p>
+
+<h3 id="solid-state-drive-ssd">Solid State Drive (SSD)</h3>
+<p>Is based on the same flash memory technology, but its interface is the same as of a hard drive (most commonly SATA).</p>
+
+<p><strong>Application:</strong> Used mainly as a main storage for desktops and laptops, sometimes in combination with HDDs where larger capacities are needed. SSDs are best used for data that require fast access times and read/write rates as for booting the operating system or starting important programs.</p>
+
+<p><strong>Typical capacity:</strong> 128GB - 1TB</p>
+
+
+	<i class="clear"></i>
+</article>
+
+			<i class="clearfix"></i>
+		</main>
+		<footer class="footer">
+	<div class="container col-md-4 col-md-offset-4">
+		<p class="text-muted">
+			Made with love and coffee by another IB student
+			<span>
+				<a href="https://github.com/mwmg" aria-label="Github"><i class="fa fa-lg fa-github"></i></a>
+			</span>
+		</p>
+		<ul>
+			<li><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0;margin-bottom:0" src="/assets/img/cc4-0.png" /></a></li>
+			<li><a href="http://localhost:4000">Home</a></li>
+			<li><a href="/about">About</a></li>
+			<li><a href="/privacy">Privacy policy</a></li>
+		</ul>
+	</div>
+</footer>
+<script src="http://localhost:4000/assets/js/jquery.min.js"></script>
+<script src="http://localhost:4000/assets/js/bootstrap.min.js"></script>
+<script src="http://localhost:4000/assets/js/fixedsticky.js"></script>
+<!--><script src="http://localhost:4000/assets/js/main.js"></script><-->
+
+	</div>
+</body>
+
+</html>

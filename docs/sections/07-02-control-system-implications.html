@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This section looks at the advantages and disadvantages of control systems, including its moral and ethical implications."/>
+	<!-- Open Graph tags -->
+	<meta property="og:locale" content="en_US">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Evaluation of control systems">
+	<meta property="og:url" content="http://localhost:4000/sections/07-02-control-system-implications.html">
+	<meta property="og:site_name" content="cs-ib.net">
+	<meta property="article:publisher" content="https://www.github.com/mwmg" />
+	<meta property="article:author" content="https://www.github.com/mwmg" />
+	<meta property="article:published_time" content=" 2020-10-02 19:07:39 +0200" />
+	<meta property="og:description" content="This section looks at the advantages and disadvantages of control systems, including its moral and ethical implications.">
+
+	<!-- Twitter card tags -->
+	<meta name="twitter:card" content="summary"/>
+	<meta name="twitter:title" content="Evaluation of control systems">
+	<meta name="twitter:description" content="This section looks at the advantages and disadvantages of control systems, including its moral and ethical implications.">
+	<meta name="twitter:site" content="@GuseMiguel">
+
+	<title>Evaluation of control systems - cs-ib</title>
+
+	<link rel="stylesheet" href="http://localhost:4000/css/main.css">
+	<!-- Asynchronous CSS loading -->
+	<link rel="preload" href="http://localhost:4000/css/slow.css" as="style" onload="this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="http://localhost:4000/css/slow.css"></noscript>
+	<!-- load CSS script -->
+	<script>
+			/*! loadCSS: load a CSS file asynchronously. [c]2016 @scottjehl, Filament Group, Inc. Licensed MIT */
+			(function(w){
+				"use strict";
+				/* exported loadCSS */
+				var loadCSS = function( href, before, media ){
+					// Arguments explained:
+					// `href` [REQUIRED] is the URL for your CSS file.
+					// `before` [OPTIONAL] is the element the script should use as a reference for injecting our stylesheet <link> before
+						// By default, loadCSS attempts to inject the link after the last stylesheet or script in the DOM. However, you might desire a more specific location in your document.
+					// `media` [OPTIONAL] is the media type or query of the stylesheet. By default it will be 'all'
+					var doc = w.document;
+					var ss = doc.createElement( "link" );
+					var ref;
+					if( before ){
+						ref = before;
+					}
+					else {
+						var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+						ref = refs[ refs.length - 1];
+					}
+
+					var sheets = doc.styleSheets;
+					ss.rel = "stylesheet";
+					ss.href = href;
+					// temporarily set media to something inapplicable to ensure it'll fetch without blocking render
+					ss.media = "only x";
+
+					// wait until body is defined before injecting link. This ensures a non-blocking load in IE11.
+					function ready( cb ){
+						if( doc.body ){
+							return cb();
+						}
+						setTimeout(function(){
+							ready( cb );
+						});
+					}
+					// Inject link
+						// Note: the ternary preserves the existing behavior of "before" argument, but we could choose to change the argument to "after" in a later release and standardize on ref.nextSibling for all refs
+						// Note: `insertBefore` is used instead of `appendChild`, for safety re: http://www.paulirish.com/2011/surefire-dom-element-insertion/
+					ready( function(){
+						ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+					});
+					// A method (exposed on return object for external use) that mimics onload by polling until document.styleSheets until it includes the new sheet.
+					var onloadcssdefined = function( cb ){
+						var resolvedHref = ss.href;
+						var i = sheets.length;
+						while( i-- ){
+							if( sheets[ i ].href === resolvedHref ){
+								return cb();
+							}
+						}
+						setTimeout(function() {
+							onloadcssdefined( cb );
+						});
+					};
+
+					function loadCB(){
+						if( ss.addEventListener ){
+							ss.removeEventListener( "load", loadCB );
+						}
+						ss.media = media || "all";
+					}
+
+					// once loaded, set link's media back to `all` so that the stylesheet applies once it loads
+					if( ss.addEventListener ){
+						ss.addEventListener( "load", loadCB);
+					}
+					ss.onloadcssdefined = onloadcssdefined;
+					onloadcssdefined( loadCB );
+					return ss;
+				};
+				// commonjs
+				if( typeof exports !== "undefined" ){
+					exports.loadCSS = loadCSS;
+				}
+				else {
+					w.loadCSS = loadCSS;
+				}
+			}( typeof global !== "undefined" ? global : this ));
+
+
+
+
+			/* CSS rel=preload polyfill (from src/cssrelpreload.js) */
+			/* CSS rel=preload polyfill. Depends on loadCSS function */
+			(function( w ){
+			  // rel=preload support test
+			  if( !w.loadCSS ){
+			    return;
+			  }
+			  var rp = loadCSS.relpreload = {};
+			  rp.support = function(){
+			    try {
+			      return w.document.createElement("link").relList.supports( "preload" );
+			    } catch (e) {}
+			  };
+
+			  // loop preload links and fetch using loadCSS
+			  rp.poly = function(){
+			    var links = w.document.getElementsByTagName( "link" );
+			    for( var i = 0; i < links.length; i++ ){
+			      var link = links[ i ];
+			      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" ){
+			        w.loadCSS( link.href, link );
+			        link.rel = null;
+			      }
+			    }
+			  };
+
+			  // if link[rel=preload] is not supported, we must fetch the CSS manually using loadCSS
+			  if( !rp.support() ){
+			    rp.poly();
+			    var run = w.setInterval( rp.poly, 300 );
+			    if( w.addEventListener ){
+			      w.addEventListener( "load", function(){
+			        w.clearInterval( run );
+			      } )
+			    }
+			  }
+			}( this ));
+
+			</script>
+	<!-- Rest of the head -->
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+	<link rel="canonical" href="http://localhost:4000/sections/07-02-control-system-implications.html">
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-90695643-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+</head>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-9703453607267790",
+      enable_page_level_ads: true
+    });
+</script>
+
+
+<body>
+	<header>
+	<div class="site-header hidden-xs">
+		<div class="site-header-wrapper">
+			<a class="site-title" href="http://localhost:4000">cs-ib</a>
+		<span class="site-slogan">IB Computer Science</span>
+		</div>
+	</div>
+</header>
+
+<nav class="navbar navbar-default fixedsticky">
+	<div class="container">
+		<!-- Menu toggle button -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar" aria-expanded="false">
+		        <!-- Represents navbar collapsed menu on smaller screens -->
+	            <span class="sr-only">Toggle navigation</span>
+	            <i class="fa fa-bars" aria-hidden="true"></i> Menu
+		    </button>
+		    <a class="navbar-brand visible-xs" href="http://localhost:4000">cs-ib</a>
+		</div>
+		<div class="collapse navbar-collapse" id="main-navbar">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">IB Topics<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						
+						<li><a href="/topic/01-system-fundamentals.html">Topic 1 - System Fundamentals</a></li>
+						
+						<li><a href="/topic/05-abstract-data-structures.html">Topic 5 - Abstract data structures [HL]</a></li>
+						
+						<li><a href="/topic/06-resource-management.html">Topic 6 - Resource Management [HL]</a></li>
+						
+						<li><a href="/topic/07-control-systems.html">Topic 7 - Control systems [HL]</a></li>
+						
+						<li><a href="/topic/C-web-science.html">Option C - Web Science</a></li>
+						
+						<li><a href="/topic/case-study-2017.html">Case Study 2017</a></li>
+						
+					</ul>
+				</li>
+				<li><a href="http://localhost:4000">Home</a></li>
+				 
+				<li><a href="/blog/">Blog</a></li>
+				    
+				<li><a href="/about/">About</a></li>
+				    
+				<li><a href="/links/">Links</a></li>
+				           
+			</ul>
+		</div>
+	</div>
+</nav> 
+
+	<span class="clearfix"></span>
+	<div class="container">
+		<main>
+			<aside class="col-md-3 hidden-md hidden-lg">
+	<button type="button" class="btn btn-default vertical-rhythm" data-toggle="collapse" data-target="#sections-sidebar" aria-expanded="false" aria-controls="sections-sidebar">
+        <!-- Represents navbar collapsed menu on smaller screens -->
+        <span class="sr-only">Toggle sidebar</span>
+        <i class="fa fa-bars" aria-hidden="true"></i> Sections
+    </button>
+    <div class="collapse" id="sections-sidebar">
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/07-01-range-of-control-systems.html">Control systems overview</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/07-02-control-system-implications.html">Evaluation of control systems</a>
+    	</p>
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    </div>
+</aside>
+<aside class="col-md-3 hidden-xs hidden-sm fixedsticky sidebar">
+	<h4>
+   		Sections
+   	</h4>
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/07-01-range-of-control-systems.html">Control systems overview</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/07-02-control-system-implications.html">Evaluation of control systems</a>
+   	</p>
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+</aside>
+
+<article class="col-md-6">
+	
+		
+	
+		
+	
+		
+	
+		
+			<h3><a href="/topic/07-control-systems.html">Topic 7 - Control systems [HL]</a></h3>
+		
+	
+		
+	
+		
+	
+	<h1 class="page-title">Evaluation of control systems</h1>
+	<p><em>This section looks at the advantages and disadvantages of control systems, including its moral and ethical implications.</em></p>
+	<!-- more -->
+<p>This section is evaluates different systems. The first evaluation is for control systems in general and is followed by a comparison of centralized and distributed systems. Lastly the more specific implications on prisoner tagging, surveillance, CCTV and safety systems are discussed.</p>
+
+<h2 id="general">General</h2>
+<h3 id="pros">Pros</h3>
+<ul>
+  <li>Computers can respond very rapidly to change.</li>
+  <li>Systems can run 24 hours a day, 365 days a year.</li>
+  <li>Control systems can operate in places that humans would find dangerous or awkward.</li>
+  <li>Outputs are consistent and error free.</li>
+  <li>Computers can process data quickly and machines can operate faster than humans.</li>
+</ul>
+
+<h3 id="contra">Contra</h3>
+<ul>
+  <li>The software for the control system is specialized and may cost a lot of money to develop</li>
+  <li>If the computer malfunctions the system will not work</li>
+  <li>If there is a power cut the system will not work</li>
+  <li>The computer can’t react to unexpected events like a human could. It can only respond in the way it has been programmed to.</li>
+  <li>It can cause some concern if total control for a system and the decisions are handed over to a computer.</li>
+</ul>
+
+<h2 id="centralized-vs-distributed-systems">Centralized vs. distributed systems</h2>
+<table class="table table-bordered">
+	<tr>
+		<th></th>
+		<th>Centralized systems</th>
+		<th>Distributed system</th>
+	</tr>
+	<tr>
+		<td>Pros</td>
+		<td>
+			<ul>
+				<li>Single point of control</li>
+				<li>Access to all resources at one point</li>
+				<li>Relatively easy implementation</li>
+			</ul>
+		</td>
+		<td>
+			<ul>
+				<li>Higher reliability through multiple points of failure</li>
+				<li>Lower cost</li>
+				<li>Speed</li>
+				<li>Scalability</li>
+				<li>Data and resource sharing</li>
+				<li>Flexibility</li>
+				<li>Improved communication</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>Cons</td>
+		<td>
+			<ul>
+				<li>Single point of failure</li>
+				<li>Potentially higher cost</li>
+				<li>Less power</li>
+				<li>Less flexibility</li>
+			</ul>
+		</td>
+		<td>
+			<ul>
+				<li>Harder to maintain</li>
+				<li>Less accessibility</li>
+				<li>Dependance on network bandwidth</li>
+				<li>More complex software</li>
+				<li>Security risks</li>
+			</ul>
+		</td>
+	</tr>
+</table>
+
+<h2 id="tagging-prisioners">Tagging prisioners</h2>
+<h3 id="pros-1">Pros</h3>
+<ul>
+  <li>Government no longer needs to house or feed the prisoner in a prison so there is a cost saving.</li>
+  <li>Can be safer for the community as people who may not normally be sent to prison can be effectively monitored.</li>
+  <li>Families who rely on convicted person can continue to live with them and receive financial/emotional support.</li>
+  <li>There may be improved rehabilitation as offenders are not removed from society and put in a “criminal” environment.</li>
+</ul>
+
+<h3 id="cons">Cons</h3>
+<ul>
+  <li>Risk of devices being removed and prisoners offending.</li>
+  <li>Does not necessarily prevent any future crimes</li>
+  <li>System is expensive to set up.</li>
+  <li>System may not be reliable and there may be areas where the system does not cover.</li>
+  <li>Extra people are required to monitor and intervene when there are problems.</li>
+  <li>There may be privacy issues.</li>
+  <li>The security of the system is important as any hacking would reveal sensitive data</li>
+</ul>
+
+<h2 id="surveillance">Surveillance</h2>
+<h3 id="pros-2">Pros</h3>
+<ul>
+  <li>Preventing crime and even terrorism (NSA)</li>
+  <li>Potentially increased safety</li>
+  <li>More evidence for finding criminals</li>
+  <li>Superiors can ensure productivity, e.g. the boss tracking his employees, or the teacher ensuring that students work</li>
+</ul>
+
+<h3 id="cons-1">Cons</h3>
+<ul>
+  <li>Privacy concerns -&gt; collection of user data from normal people, even if they don’t do anything (be it crime, or being unproductive)</li>
+  <li>Chance of misuse/abuse</li>
+  <li>Personal information is very sensitive and holds power -&gt; can be used for criminal actions as blackmailing or even murder</li>
+</ul>
+
+<h2 id="cctv">CCTV</h2>
+<h3 id="pros-3">Pros</h3>
+<ul>
+  <li>Helps looking at different places at the same time</li>
+  <li>Helps maintain security</li>
+  <li>Video clips can be used as evidence for investigations</li>
+  <li>Lead to reduction in damages such as vandalism or theft</li>
+  <li>Can be conveniently monitored over the internet</li>
+</ul>
+
+<h3 id="cons-2">Cons</h3>
+<ul>
+  <li>Too many can intrude a person’s privacy</li>
+  <li>Doesn’t necessarily prevent crime</li>
+  <li>Misuse of captured pictures from public surveillance</li>
+  <li>Can be dangerous in the wrong hands, e.g. stalkers</li>
+  <li>Surveillance cameras can be hacked, which leads to misuse</li>
+</ul>
+
+<h2 id="improved-safety-systems">Improved safety systems</h2>
+<h3 id="pros-4">Pros</h3>
+<ul>
+  <li>Improve safety for users, e.g. passengers in a car</li>
+  <li>Can save lives</li>
+  <li>May open more job opportunities as skilled workers are needed for maintainance</li>
+</ul>
+
+<h3 id="cons-3">Cons</h3>
+<ul>
+  <li>Subject to technical failure, e.g. bugs</li>
+  <li>More complex and harder to maintain  requires skilled workers, e.g. a car mechanic may not be able to repair the car, needing an electrical engineer</li>
+</ul>
+
+	<i class="clear"></i>
+</article>
+
+			<i class="clearfix"></i>
+		</main>
+		<footer class="footer">
+	<div class="container col-md-4 col-md-offset-4">
+		<p class="text-muted">
+			Made with love and coffee by another IB student
+			<span>
+				<a href="https://github.com/mwmg" aria-label="Github"><i class="fa fa-lg fa-github"></i></a>
+			</span>
+		</p>
+		<ul>
+			<li><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0;margin-bottom:0" src="/assets/img/cc4-0.png" /></a></li>
+			<li><a href="http://localhost:4000">Home</a></li>
+			<li><a href="/about">About</a></li>
+			<li><a href="/privacy">Privacy policy</a></li>
+		</ul>
+	</div>
+</footer>
+<script src="http://localhost:4000/assets/js/jquery.min.js"></script>
+<script src="http://localhost:4000/assets/js/bootstrap.min.js"></script>
+<script src="http://localhost:4000/assets/js/fixedsticky.js"></script>
+<!--><script src="http://localhost:4000/assets/js/main.js"></script><-->
+
+	</div>
+</body>
+
+</html>

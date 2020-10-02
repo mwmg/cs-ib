@@ -22,12 +22,11 @@ collections:
         output: true
     topic:
         output: true
+destination: ./docs
 exclude:
     - package.json
     - node_modules
     - gulpfile.js
-    - deploy.sh
-    - s3_website.yml
     - bower_components
 
 plugins:

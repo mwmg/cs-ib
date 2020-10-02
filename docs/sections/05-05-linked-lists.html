@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This sections looks at linked lists as data structures. This includes important characteristics of linked lists, how to process them and some of its applicat..."/>
+	<!-- Open Graph tags -->
+	<meta property="og:locale" content="en_US">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Linked Lists">
+	<meta property="og:url" content="http://localhost:4000/sections/05-05-linked-lists.html">
+	<meta property="og:site_name" content="cs-ib.net">
+	<meta property="article:publisher" content="https://www.github.com/mwmg" />
+	<meta property="article:author" content="https://www.github.com/mwmg" />
+	<meta property="article:published_time" content=" 2020-10-02 19:07:39 +0200" />
+	<meta property="og:description" content="This sections looks at linked lists as data structures. This includes important characteristics of linked lists, how to process them and some of its applications.">
+
+	<!-- Twitter card tags -->
+	<meta name="twitter:card" content="summary"/>
+	<meta name="twitter:title" content="Linked Lists">
+	<meta name="twitter:description" content="This sections looks at linked lists as data structures. This includes important characteristics of linked lists, how to process them and some of its applications.">
+	<meta name="twitter:site" content="@GuseMiguel">
+
+	<title>Linked Lists - cs-ib</title>
+
+	<link rel="stylesheet" href="http://localhost:4000/css/main.css">
+	<!-- Asynchronous CSS loading -->
+	<link rel="preload" href="http://localhost:4000/css/slow.css" as="style" onload="this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="http://localhost:4000/css/slow.css"></noscript>
+	<!-- load CSS script -->
+	<script>
+			/*! loadCSS: load a CSS file asynchronously. [c]2016 @scottjehl, Filament Group, Inc. Licensed MIT */
+			(function(w){
+				"use strict";
+				/* exported loadCSS */
+				var loadCSS = function( href, before, media ){
+					// Arguments explained:
+					// `href` [REQUIRED] is the URL for your CSS file.
+					// `before` [OPTIONAL] is the element the script should use as a reference for injecting our stylesheet <link> before
+						// By default, loadCSS attempts to inject the link after the last stylesheet or script in the DOM. However, you might desire a more specific location in your document.
+					// `media` [OPTIONAL] is the media type or query of the stylesheet. By default it will be 'all'
+					var doc = w.document;
+					var ss = doc.createElement( "link" );
+					var ref;
+					if( before ){
+						ref = before;
+					}
+					else {
+						var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+						ref = refs[ refs.length - 1];
+					}
+
+					var sheets = doc.styleSheets;
+					ss.rel = "stylesheet";
+					ss.href = href;
+					// temporarily set media to something inapplicable to ensure it'll fetch without blocking render
+					ss.media = "only x";
+
+					// wait until body is defined before injecting link. This ensures a non-blocking load in IE11.
+					function ready( cb ){
+						if( doc.body ){
+							return cb();
+						}
+						setTimeout(function(){
+							ready( cb );
+						});
+					}
+					// Inject link
+						// Note: the ternary preserves the existing behavior of "before" argument, but we could choose to change the argument to "after" in a later release and standardize on ref.nextSibling for all refs
+						// Note: `insertBefore` is used instead of `appendChild`, for safety re: http://www.paulirish.com/2011/surefire-dom-element-insertion/
+					ready( function(){
+						ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+					});
+					// A method (exposed on return object for external use) that mimics onload by polling until document.styleSheets until it includes the new sheet.
+					var onloadcssdefined = function( cb ){
+						var resolvedHref = ss.href;
+						var i = sheets.length;
+						while( i-- ){
+							if( sheets[ i ].href === resolvedHref ){
+								return cb();
+							}
+						}
+						setTimeout(function() {
+							onloadcssdefined( cb );
+						});
+					};
+
+					function loadCB(){
+						if( ss.addEventListener ){
+							ss.removeEventListener( "load", loadCB );
+						}
+						ss.media = media || "all";
+					}
+
+					// once loaded, set link's media back to `all` so that the stylesheet applies once it loads
+					if( ss.addEventListener ){
+						ss.addEventListener( "load", loadCB);
+					}
+					ss.onloadcssdefined = onloadcssdefined;
+					onloadcssdefined( loadCB );
+					return ss;
+				};
+				// commonjs
+				if( typeof exports !== "undefined" ){
+					exports.loadCSS = loadCSS;
+				}
+				else {
+					w.loadCSS = loadCSS;
+				}
+			}( typeof global !== "undefined" ? global : this ));
+
+
+
+
+			/* CSS rel=preload polyfill (from src/cssrelpreload.js) */
+			/* CSS rel=preload polyfill. Depends on loadCSS function */
+			(function( w ){
+			  // rel=preload support test
+			  if( !w.loadCSS ){
+			    return;
+			  }
+			  var rp = loadCSS.relpreload = {};
+			  rp.support = function(){
+			    try {
+			      return w.document.createElement("link").relList.supports( "preload" );
+			    } catch (e) {}
+			  };
+
+			  // loop preload links and fetch using loadCSS
+			  rp.poly = function(){
+			    var links = w.document.getElementsByTagName( "link" );
+			    for( var i = 0; i < links.length; i++ ){
+			      var link = links[ i ];
+			      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" ){
+			        w.loadCSS( link.href, link );
+			        link.rel = null;
+			      }
+			    }
+			  };
+
+			  // if link[rel=preload] is not supported, we must fetch the CSS manually using loadCSS
+			  if( !rp.support() ){
+			    rp.poly();
+			    var run = w.setInterval( rp.poly, 300 );
+			    if( w.addEventListener ){
+			      w.addEventListener( "load", function(){
+			        w.clearInterval( run );
+			      } )
+			    }
+			  }
+			}( this ));
+
+			</script>
+	<!-- Rest of the head -->
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+	<link rel="canonical" href="http://localhost:4000/sections/05-05-linked-lists.html">
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-90695643-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+</head>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-9703453607267790",
+      enable_page_level_ads: true
+    });
+</script>
+
+
+<body>
+	<header>
+	<div class="site-header hidden-xs">
+		<div class="site-header-wrapper">
+			<a class="site-title" href="http://localhost:4000">cs-ib</a>
+		<span class="site-slogan">IB Computer Science</span>
+		</div>
+	</div>
+</header>
+
+<nav class="navbar navbar-default fixedsticky">
+	<div class="container">
+		<!-- Menu toggle button -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar" aria-expanded="false">
+		        <!-- Represents navbar collapsed menu on smaller screens -->
+	            <span class="sr-only">Toggle navigation</span>
+	            <i class="fa fa-bars" aria-hidden="true"></i> Menu
+		    </button>
+		    <a class="navbar-brand visible-xs" href="http://localhost:4000">cs-ib</a>
+		</div>
+		<div class="collapse navbar-collapse" id="main-navbar">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">IB Topics<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						
+						<li><a href="/topic/01-system-fundamentals.html">Topic 1 - System Fundamentals</a></li>
+						
+						<li><a href="/topic/05-abstract-data-structures.html">Topic 5 - Abstract data structures [HL]</a></li>
+						
+						<li><a href="/topic/06-resource-management.html">Topic 6 - Resource Management [HL]</a></li>
+						
+						<li><a href="/topic/07-control-systems.html">Topic 7 - Control systems [HL]</a></li>
+						
+						<li><a href="/topic/C-web-science.html">Option C - Web Science</a></li>
+						
+						<li><a href="/topic/case-study-2017.html">Case Study 2017</a></li>
+						
+					</ul>
+				</li>
+				<li><a href="http://localhost:4000">Home</a></li>
+				 
+				<li><a href="/blog/">Blog</a></li>
+				    
+				<li><a href="/about/">About</a></li>
+				    
+				<li><a href="/links/">Links</a></li>
+				           
+			</ul>
+		</div>
+	</div>
+</nav> 
+
+	<span class="clearfix"></span>
+	<div class="container">
+		<main>
+			<aside class="col-md-3 hidden-md hidden-lg">
+	<button type="button" class="btn btn-default vertical-rhythm" data-toggle="collapse" data-target="#sections-sidebar" aria-expanded="false" aria-controls="sections-sidebar">
+        <!-- Represents navbar collapsed menu on smaller screens -->
+        <span class="sr-only">Toggle sidebar</span>
+        <i class="fa fa-bars" aria-hidden="true"></i> Sections
+    </button>
+    <div class="collapse" id="sections-sidebar">
+    	
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/05-01-thinking-recursively.html">Thinking recursively</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/05-02-multi-dimensional-arrays.html">Multi-dimensional arrays</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/05-03-stacks.html">Stacks</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/05-04-queues.html">Queues</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/05-05-linked-lists.html">Linked Lists</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/05-06-trees.html">Binary trees</a>
+    	</p>
+    	
+    	
+    	
+    	<p class="side-section-item">
+    		<a href="/sections/05-07-applications.html">Applications</a>
+    	</p>
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    </div>
+</aside>
+<aside class="col-md-3 hidden-xs hidden-sm fixedsticky sidebar">
+	<h4>
+   		Sections
+   	</h4>
+   	
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/05-01-thinking-recursively.html">Thinking recursively</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/05-02-multi-dimensional-arrays.html">Multi-dimensional arrays</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/05-03-stacks.html">Stacks</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/05-04-queues.html">Queues</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/05-05-linked-lists.html">Linked Lists</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/05-06-trees.html">Binary trees</a>
+   	</p>
+   	
+   	
+   	
+   	<p class="side-section-item">
+   		<a href="/sections/05-07-applications.html">Applications</a>
+   	</p>
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+</aside>
+
+<article class="col-md-6">
+	
+		
+	
+		
+			<h3><a href="/topic/05-abstract-data-structures.html">Topic 5 - Abstract data structures [HL]</a></h3>
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+	<h1 class="page-title">Linked Lists</h1>
+	<p><em>This sections looks at linked lists as data structures. This includes important characteristics of linked lists, how to process them and some of its applications.</em></p>
+	<h2 id="5111-describe-the-features-and-characteristics-of-a-dynamic-data-structure">5.1.11 Describe the features and characteristics of a dynamic data structure.</h2>
+<p>A <strong>dynamic data structure</strong> is a data structure that is flexible in growing or shrinking in size. This can make memory allocation more efficient, by only using as much as is necessary, while also allowing the programmer to design more flexible algorithms, where the size of a data structure is not known before runtime.</p>
+
+<h3 id="nodes--pointers">Nodes &amp; pointers</h3>
+<p><strong>Nodes and pointers</strong> are two concepts commonly used for dynamic data structures. The idea is that each data element is allocated a <em>node</em> for storing information. In addition, each node has a <em>pointer</em> which points to the memory space in which the next node (data element) is stored.</p>
+
+<h2 id="5112-describe-how-linked-lists-operate-logically">5.1.12 Describe how linked lists operate logically.</h2>
+<h3 id="characteristics">Characteristics</h3>
+<p>A linked list is based on these concepts of <em>nodes</em> and <em>pointers</em>, as shows on the following diagram.</p>
+
+<p><img class="center-block img-responsive" src="/assets/img/linked-list.jpg" alt="Linked list" align="center" />
+<em>Figure 1: Linked list structure</em></p>
+
+<p>In addition, to the nodes, there is a <strong>head</strong> pointer which includes a reference to the first node in the linked list. The pointer of the last node in the list will also indicate the end of the linked list. This can be done in different ways, e.g. by pointing to <em>null</em> (nowhere).</p>
+
+<h3 id="pros--cons">Pros &amp; Cons</h3>
+<p><strong>Advantages</strong>:</p>
+<ul>
+  <li>flexible size</li>
+  <li>easy to implement stacks or queues with linked lists</li>
+  <li>simple insertion and deletion of nodes</li>
+</ul>
+
+<p><strong>Disadvantages</strong>:</p>
+<ul>
+  <li>additional memory usage because of pointers</li>
+  <li>sequential access only</li>
+  <li>nodes are stored incontiguously, which can slow down access speeds</li>
+</ul>
+
+<h3 id="applications">Applications</h3>
+<p>Some common applications of linked lists include:</p>
+<ul>
+  <li>implementing other dynamic data structures, e.g. stacks or queues</li>
+  <li>document viewer (e.g. images) using buttons for previous and next elements can make use of (doubly) linked lists</li>
+  <li>dynamic memory allocation</li>
+  <li>process management, e.g. Linux process management</li>
+</ul>
+
+<h2 id="5113-sketch-linked-lists-single-double-and-circular">5.1.13 Sketch linked lists (single, double and circular).</h2>
+<p>See figure 1 above for the single linked list.</p>
+<h3 id="doubly-linked-list">Doubly linked list</h3>
+<p>In addition to the pointer to the next node, each node also has a pointer referencing the previous node, as illustrated in figure 2.</p>
+
+<p><img class="center-block img-responsive" src="/assets/img/doubly-linked-list.jpg" alt="Doubly linked list" align="center" />
+<em>Figure 2: Doubly linked list structure</em></p>
+
+<p>This allows to also moving backwards through the list, potentially increasing access speeds or making certain algorithms easier to implement. However, the tradeoff is the additional memory space consumed by the backwards pointer.</p>
+<h3 id="circular-linked-list">Circular linked list</h3>
+<p>Sometimes the last node of a linked list does not point to <em>null</em>, but back to the first node instead. This is called a <em>circular linked list</em> and is illustrated in figure 3.</p>
+
+<p><img class="center-block img-responsive" src="/assets/img/circular-linked-list.jpg" alt="Circular linked list" align="center" />
+<em>Figure 3: Circular linked list structure</em></p>
+
+<p>This type of linked list has a tail node instead of a head, which usually points to the last node. This has the benefit that nodes can be appended to the end very quickly.</p>
+<h3 id="adding-elements">Adding elements</h3>
+<p>The first step is to create a pointer to the node after which the new node is to be inserted. At the same time a new node is created.</p>
+
+<p><img class="center-block img-responsive" src="/assets/img/adding-node-linked-list-1.jpg" alt="Adding node to linked list 1" align="center" />
+<em>Figure 4: Adding node to linked list 1</em></p>
+
+<p>The next step is to set the pointer of the new node to the following node.</p>
+
+<p><img class="center-block img-responsive" src="/assets/img/adding-node-linked-list-2.jpg" alt="Adding node to linked list 2" align="center" />
+<em>Figure 5: Adding node to linked list 2</em></p>
+
+<p>Lastly, the previous node needs to point to the new node.</p>
+
+<p><img class="center-block img-responsive" src="/assets/img/adding-node-linked-list-3.jpg" alt="Adding node to linked list 3" align="center" />
+<em>Figure 6: Adding node to linked list 3</em></p>
+
+<p><em>Note that the process is slightly different when adding a node at the beginning or end of the list. It is also slightly different for doubly linked or circular linked lists. Figuring these processes out can be good practise.</em></p>
+<h3 id="deleting-elements">Deleting elements</h3>
+<p>Deleting elements is relatively easy, as it only requires to modify the previous node’s pointer to the following node. After this the deleted node just needs to be removed from memory.</p>
+
+<p><img class="center-block img-responsive" src="/assets/img/delete-node-linked-list-1.jpg" alt="Deleting node to linked list 1" align="center" />
+<em>Figure 7: Deleting node to linked list 1</em></p>
+
+<p><img class="center-block img-responsive" src="/assets/img/delete-node-linked-list-2.jpg" alt="Deleting node to linked list 2" align="center" />
+<em>Figure 8: Deleting node to linked list 2</em></p>
+
+<h3 id="searching-elements">Searching elements</h3>
+<p>Searching needs to be done sequentially as in linear search, because nodes can only be accessed by following pointers from node to node.</p>
+
+	<i class="clear"></i>
+</article>
+
+			<i class="clearfix"></i>
+		</main>
+		<footer class="footer">
+	<div class="container col-md-4 col-md-offset-4">
+		<p class="text-muted">
+			Made with love and coffee by another IB student
+			<span>
+				<a href="https://github.com/mwmg" aria-label="Github"><i class="fa fa-lg fa-github"></i></a>
+			</span>
+		</p>
+		<ul>
+			<li><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0;margin-bottom:0" src="/assets/img/cc4-0.png" /></a></li>
+			<li><a href="http://localhost:4000">Home</a></li>
+			<li><a href="/about">About</a></li>
+			<li><a href="/privacy">Privacy policy</a></li>
+		</ul>
+	</div>
+</footer>
+<script src="http://localhost:4000/assets/js/jquery.min.js"></script>
+<script src="http://localhost:4000/assets/js/bootstrap.min.js"></script>
+<script src="http://localhost:4000/assets/js/fixedsticky.js"></script>
+<!--><script src="http://localhost:4000/assets/js/main.js"></script><-->
+
+	</div>
+</body>
+
+</html>

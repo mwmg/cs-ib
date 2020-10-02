@@ -1,0 +1,13 @@
+---
+layout: default
+---
+<div class="col-md-6 col-md-offset-3">
+	<article>
+		<time class="post-info">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</time>
+
+		<h1 class="page-title">{{ page.title }}</h1>
+
+		{{ content }}
+		<i class="clear"></i>
+	</article>
+</div>

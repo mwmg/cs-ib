@@ -1,0 +1,18 @@
+---
+# Front matter comment to ensure Jekyll properly reads file.
+---
+// Changed Bootstrap variables
+$icon-font-path: "{{ "/assets/fonts/bootstrap" | prepend: site.url }}" !default;
+
+// Additional variables. Everything else is in the bootstrapp _variables.scss
+
+$font-weight-base: 400 !default;
+$font-weight-text: 300 !default;
+
+$spacing-unit:     30px !default;
+
+@import 
+  "bootstrap",
+  "base",
+  "layout",
+  "fixedsticky"

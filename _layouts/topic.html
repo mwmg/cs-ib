@@ -1,0 +1,29 @@
+---
+layout: default
+---
+<aside class="col-md-3 hidden-xs hidden-sm fixedsticky sidebar">
+	<h4>
+		Sections
+	</h4>
+	{% for section in site.sections %}
+	{% if section.topic == page.topic %}
+	<p class="side-section-item">
+		<a href="{{ section.url | prepend: site.baseurl }}">{{ section.title }}</a>
+	</p>
+	{% endif %}
+	{% endfor %}
+</aside>
+<article class="col-md-6">
+	<h1 class="page-title">{{ page.title }}</h1>
+
+	{{ content }}
+
+	{% for section in site.sections %}
+		{% if section.topic == page.topic %}
+			<a href="{{ section.url }}">
+				<h3>{{ section.title }}</h3>
+			</a>
+			<p>{{ section.description }}</p>
+		{% endif %}
+	{% endfor %}
+</article>

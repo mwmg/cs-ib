@@ -1,0 +1,17 @@
+---
+layout: page
+title: Blog
+description: Here you can find blog posts on topics outside of the IB CS course, which I found interesting.
+permalink: /blog/
+---
+<p>
+	IB Computer Science is just the start. There is a whole world out there to explore!
+</p>
+<p>
+	I enjoy programming in my free time and have worked so far especially with web technologies, including Node.js, MongoDB, Express and of course JavaScript, HTML and CSS. Here you can find blog posts on topics outside of the IB CS course, which I found interesting.
+</p>
+{% for post in site.posts %}
+		<time>{{ post.date | date: "%b %-d, %Y" }}</time>
+		<h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+		<p> {{ post.excerpt }} </p>
+{% endfor %}

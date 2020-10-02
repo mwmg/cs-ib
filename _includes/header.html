@@ -1,0 +1,38 @@
+<header>
+	<div class="site-header hidden-xs">
+		<div class="site-header-wrapper">
+			<a class="site-title" href="{{ site.url }}">{{ site.title }}</a>
+		<span class="site-slogan">{{ site.slogan }}</span>
+		</div>
+	</div>
+</header>
+
+<nav class="navbar navbar-default fixedsticky">
+	<div class="container">
+		<!-- Menu toggle button -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar" aria-expanded="false">
+		        <!-- Represents navbar collapsed menu on smaller screens -->
+	            <span class="sr-only">Toggle navigation</span>
+	            <i class="fa fa-bars" aria-hidden="true"></i> Menu
+		    </button>
+		    <a class="navbar-brand visible-xs" href="{{ site.url }}">cs-ib</a>
+		</div>
+		<div class="collapse navbar-collapse" id="main-navbar">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">IB Topics<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						{% for topic in site.topic%}
+						<li><a href="{{ topic.url }}">{{ topic.title }}</a></li>
+						{% endfor %}
+					</ul>
+				</li>
+				<li><a href="{{ site.url }}">Home</a></li>
+				{% for page in site.pages %} {% if page.title %}
+				<li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
+				{% endif %} {% endfor %}
+			</ul>
+		</div>
+	</div>
+</nav> 

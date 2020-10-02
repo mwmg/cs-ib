@@ -1,0 +1,36 @@
+---
+# Front matter comment to ensure Jekyll properly reads file.
+---
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Share+Tech+Mono');
+
+.site-header::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: -1;
+	background-image: url("/assets/img/background-code.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.site-header {
+	.site-header-wrapper{
+		.site-title {
+			font-family: "Share Tech Mono", monospace;
+		}
+		.site-slogan {
+			font-family: "Amatic SC", Impact , serif;
+		}
+	}
+}
+
+.navbar-default .navbar-brand {
+	font-family: "Share Tech Mono", monospace;
+}
+
+//Font awesome path
+$fa-font-path: "{{ "/assets/fonts/font-awesome" | prepend: site.url }}" !default;
+@import "font-awesome/font-awesome"

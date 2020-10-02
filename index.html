@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<div class="col-md-6 col-md-offset-3">
+	<article>
+		<h1>IB Computer Science Resources</h1>
+		<p>
+			On this website you can find revision material for the IB Computer Science course, following the sylllabus from 2014. The content should be considered a starting point for further research or as a revision guide and is by no means complete.
+		</p>
+		<p>
+			Information by topic:
+		</p>
+		{% for topic in site.topic %} 
+			<a href="{{ topic.url }}">
+				<h2>{{ topic.title }}</h2>
+			</a>
+			<p>{{ topic.content }}</p>
+		{% endfor %}
+		<p>
+			<i>Disclaimer: This website is not related to the IBO.</i>
+		</p>
+	</article>
+</div>

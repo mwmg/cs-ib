@@ -1,0 +1,17 @@
+{
+  "name": "cs-ib",
+  "version": "1.0.0",
+  "description": "Blog about IB Computer Science",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.26.12",
+    "fancy-log": "^1.3.3",
+    "gulp": "^4.0.2"
+  }
+}

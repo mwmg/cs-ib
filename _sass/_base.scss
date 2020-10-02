@@ -1,0 +1,180 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+/**
+ * Reset some basic elements
+ */
+body, h1, h2, h3, h4, h5, h6,
+p, hr,
+dl, dd, ol, ul, figure {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+/**
+ * Basic styling
+ */
+body {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+     -moz-font-feature-settings: "kern" 1;
+       -o-font-feature-settings: "kern" 1;
+          font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  margin-bottom: 75px;
+}
+
+p, h4, h5 {
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+}
+
+article * li {
+  -webkit-font-smoothing: antialiased;
+}
+
+/**
+ * Set `margin-bottom` to maintain vertical rhythm
+ */
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre,
+ul, ol, dl, figure, img, hr, .vertical-rhythm, 
+%vertical-rhythm {
+  margin-bottom: $spacing-unit / 2;
+}
+
+
+
+/**
+ * Images
+ */
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+
+
+/**
+ * Figures
+ */
+figure > img {
+  display: block;
+}
+
+figcaption {
+  font-size: $font-size-small;
+}
+
+
+
+/**
+ * Lists
+ */
+ul, ol {
+  margin-left: $spacing-unit;
+}
+
+li {
+  > ul,
+  > ol {
+    margin-bottom: 0;
+  }
+}
+
+
+
+/**
+ * Headings
+ */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $font-weight-base;
+}
+h1 {
+  font-weight: bold;
+}
+
+h2 {
+  font-size: $font-size-h3;
+  padding-left: $spacing-unit / 2;
+  border-left: 4px solid $brand-primary;
+}
+h3 {
+  font-size: $font-size-h4;
+}
+
+hr {
+  border-top: 4px solid $brand-primary;
+}
+
+
+/**
+ * Blockquotes
+ *
+blockquote {
+  color: $gray;
+  border-left: 4px solid $gray-light;
+  padding-left: $spacing-unit / 2;
+  font-size: 18px;
+  letter-spacing: -1px;
+  font-style: italic;
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+*/
+
+/* Post info */
+.post-info {
+  color: $gray;
+  text-align: center;
+}
+
+.page-title {
+  font-size: $font-size-base * 2.5;
+}
+.side-section-item {
+  text-align: left;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  //text-align: center;
+  border-top: 4px solid #f0f0f0;
+  /* Set the fixed height of the footer here */
+  //height: 60px;
+  background-color: #f5f5f5;
+  p{
+    margin-bottom: 0;
+  }
+  ul {
+    margin: 0;
+    li {
+      display: inline-block; 
+      padding-right: 1em;
+    }
+  }
+}
+/**
+ * Icons
+ */
+.icon > svg {
+  display: inline-block;
+  vertical-align: middle;
+
+  path {
+    fill: $gray;
+  }
+}

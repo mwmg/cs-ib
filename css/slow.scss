@@ -9,7 +9,7 @@
 	left: 0;
 	top: 0;
 	z-index: -1;
-	background-image: url("/assets/img/background-code.jpg");
+	background-image: url('{{ "/assets/img/background-code.jpg" | prepend: site.baseurl}}');
 	background-size: cover;
 	background-attachment: fixed;
 	display: block;
@@ -32,5 +32,5 @@
 }
 
 //Font awesome path
-$fa-font-path: "{{ "/assets/fonts/font-awesome" | prepend: site.url }}" !default;
+$fa-font-path: "{{ "/assets/fonts/font-awesome" | prepend: site.baseurl | prepend: site.url }}" !default;
 @import "font-awesome/font-awesome"

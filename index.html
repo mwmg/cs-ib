@@ -14,7 +14,7 @@ layout: default
 			Information by topic:
 		</p>
 		{% for topic in site.topic %} 
-			<a href="{{ topic.url }}">
+			<a href="{{ topic.url | prepend: site.baseurl }}">
 				<h2>{{ topic.title }}</h2>
 			</a>
 			<p>{{ topic.content }}</p>

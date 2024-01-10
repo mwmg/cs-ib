@@ -20,7 +20,7 @@ layout: default
 
 	{% for section in site.sections %}
 		{% if section.topic == page.topic %}
-			<a href="{{ section.url }}">
+			<a href="{{ section.url | prepend: site.baseurl }}">
 				<h3>{{ section.title }}</h3>
 			</a>
 			<p>{{ section.description }}</p>

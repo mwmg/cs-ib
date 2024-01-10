@@ -7,7 +7,7 @@
 	<meta property="og:locale" content="en_US">
 	<meta property="og:type" content="article">
 	<meta property="og:title" content="{%if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-	<meta property="og:url" content="{{ page.url | prepend: site.url }}">
+	<meta property="og:url" content="{{ page.url | prepend: site.baseurl | prepend: site.url }}">
 	<meta property="og:site_name" content="cs-ib.net">
 	<meta property="article:publisher" content="https://www.github.com/mwmg" />
 	<meta property="article:author" content="https://www.github.com/mwmg" />

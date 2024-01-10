@@ -7,8 +7,8 @@ email: gusemiguel@gmail.com
 github_username: mwmg
 
 #Settings
-baseurl: ""
-url: "https://mwmg.github.io/cs-ib/"
+baseurl: "/cs-ib"
+url: "https://mwmg.github.io"
 #url: "http://127.0.0.1:4000"
 #http://www.cs-ib.net.s3-website-ap-southeast-1.amazonaws.com
 # http://www.cs-ib.net
